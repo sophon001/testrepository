@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 定义本地文件夹路径
-local_folder="E:\Github Pages\filetest"
+local_folder="$PWD"
 
 # 定义远程仓库URL
 remote_url="https://github.com/sophon001/testrepository.git"
