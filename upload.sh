@@ -15,13 +15,14 @@ if [ -d ".git" ]; then
     echo "Local Git repository already exists."
 else
     # 本地仓库不存在，初始化Git仓库
-    git init
+    git init .
 fi
 
 # 检查是否有需要提交的更改
 if git status | grep -q "Changes not staged for commit"; then
     # 有需要提交的更改，执行提交操作
-    git add .
+    # 添加除了upload.sh文件之外的所有文件到Git暂存区
+	git add . -- :!upload.sh
     git commit -m "Update files"
 else
     # 没有需要提交的更改
@@ -31,7 +32,8 @@ fi
 # 检查是否已经关联远程仓库
 if ! git remote show | grep -q "origin"; then
     # 未关联远程仓库，添加远程仓库
-    git remote add origin "$remote_url"
+    # git remote add origin "$remote_url"
+    git remote set-url origin "$remote_url"
 else
     # 已关联远程仓库，设置默认分支名为master（如果不是默认的master分支）
     git branch -M master
